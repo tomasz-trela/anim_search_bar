@@ -5,7 +5,6 @@ class AnimSearchBar extends StatefulWidget {
   const AnimSearchBar({
     super.key, 
     required this.duration,
-    this.animationDirection = ExpandDirection.expandRight,
     this.expandedWidth,
     this.icon = const Icon(Icons.search),
     this.controller,
@@ -44,7 +43,6 @@ class AnimSearchBar extends StatefulWidget {
   });
 
   final Duration duration;
-  final ExpandDirection animationDirection;
   final Widget icon;
   final double? expandedWidth;
   final double closedWidth;
@@ -111,7 +109,6 @@ class _AnimSearchBarState extends State<AnimSearchBar> {
   Widget build(BuildContext context) {
     final width = widget.expandedWidth ?? MediaQuery.sizeOf(context).width;
     return Column(
-      crossAxisAlignment: widget.animationDirection.toCrossAxisAlignment(),
       children: [
         AnimatedContainer(
           duration: widget.duration,
@@ -165,18 +162,3 @@ class _AnimSearchBarState extends State<AnimSearchBar> {
     );
   }
 }
-
-enum ExpandDirection {
-  expandLeft,
-  expandRight,
-  expandBoth;
-
-  CrossAxisAlignment toCrossAxisAlignment() {
-    return switch (this) {
-      ExpandDirection.expandLeft => CrossAxisAlignment.end,
-      ExpandDirection.expandRight => CrossAxisAlignment.start,
-      ExpandDirection.expandBoth => CrossAxisAlignment.center,
-    };
-  }
-}
-
